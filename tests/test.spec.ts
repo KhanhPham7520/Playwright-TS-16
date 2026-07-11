@@ -1,20 +1,20 @@
 import { test, expect } from '@playwright/test';
 
 
-test.beforeAll("Before All", async () => {
+test.beforeAll("Before All", async() => {
   console.log("Before All");
 });
 
 
-test.beforeAll("Before Each", async () => {
+test.beforeAll("Before Each", async() => {
   console.log("Before Each");
 });
 
-test.beforeAll("After Each", async () => {
+test.beforeAll("After Each", async() => {
   console.log("Before Each");
 });
 
-test.beforeAll("After All", async () => {
+test.beforeAll("After All", async() => {
   console.log("After All");
 });
 
@@ -22,7 +22,7 @@ test.beforeAll("After All", async () => {
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
-
+  
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
 });
