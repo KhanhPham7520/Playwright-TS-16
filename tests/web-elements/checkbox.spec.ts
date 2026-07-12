@@ -8,7 +8,7 @@ test('Verify checkbox', async ({ page }) => {
 });
 
 async function selectCheckboxByLabel(label: string, action: 'check' | 'uncheck', page: Page) {
-    let xpath = `//div[contains(concat(' ', @class, ' '), ' ant-divider-inner-text ') and contains(normalize-space(), '${label}')]`;
+    let xpath = `//label[contains(concat(' ',@class,' '),' ant-checkbox-wrapper ' ) and contains(normalize-space(),'${label}') ]`;
     let locator = page.locator(xpath);
     let classes = await locator.getAttribute('class');
     let isChecked = ` ${classes} `.includes(' ant-checkbox-wrapper-checked ');
