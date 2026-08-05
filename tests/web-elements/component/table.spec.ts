@@ -12,7 +12,7 @@ test('Verify table', async ({ page }) => {
 
 
 async function getTableDataByLabel(label: string, expectedHeaders: string[], page: Page) {
-    let nextButtonXpath = `//div[@role='separator' and normalize-space()='Table']/following::li[@title='Next Page'][1]`;
+    let nextButtonXpath = `//div[@role='separator' and normalize-space()='${label}']/following::li[@title='Next Page'][1]`;
     let isNext;
     let tableXpath = `//div[@role='separator' and normalize-space() = '${label}']/following::table[1]`;
     let tableData = [];
