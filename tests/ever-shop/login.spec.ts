@@ -6,10 +6,8 @@ test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:3000/admin/login');
 })
 
-
-
 test('Verify login successful ', async ({ page }) => {
-    await inputTextboxByLabel('Email', "khanhpham@gmail.com", page);
+    await inputTextboxByLabel('Email', "khanhpham7520@gmail.com", page);
     await inputTextboxByLabel('Password', "1234567890", page);
     await clickButtonByLabel('SIGN IN', page);
     let dashboardHeaderXpath = "//h1[contains(concat(' ',@class,' '),' page-heading-title' ) and (normalize-space()='Dashboard')]";
@@ -31,7 +29,6 @@ test('Verify login failed when password is empty', async ({ page }) => {
     await inputTextboxByLabel('Email', 'khanhpham', page);
     await inputTextboxByLabel('Password', '', page);
     await clickButtonByLabel('SIGN IN', page);
-    let dashboardHeaderXpath = "//h1[contains(@class, 'page-heading - title') and normalize-space()='Dashboard']";
     await verifyFieldErrorMessageByLabel('Password', 'This field can not be empty', page)
 });
 
@@ -39,7 +36,6 @@ test('Verify login failed when username is invalid', async ({ page }) => {
     await inputTextboxByLabel('Email', 'khanhpham', page);
     await inputTextboxByLabel('Password', '1234567890', page);
     await clickButtonByLabel('SIGN IN', page);
-    let dashboardHeaderXpath = "//h1[contains(@class, 'page-heading - title') and normalize-space()='Dashboard']";
     await verifyFieldErrorMessageByLabel('Email', 'Invalid email', page)
 });
 
