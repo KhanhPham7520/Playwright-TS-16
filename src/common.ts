@@ -1,6 +1,5 @@
 import { expect, Page, request, test } from "@playwright/test";
 
-
 export async function inputTextboxByLabel(label: string, input: string, page: Page) {
     let xpathTextbox = `(//label[normalize-space()='${label}']/following::input)[1]`;
     let xpathTextarea = `(//label[normalize-space()='${label}']/following::textarea)[1]`;
@@ -21,9 +20,8 @@ export async function verifyFieldErrorMessageByLabel(label: string, message: str
 }
 
 export async function clickMenuItemByLabel(label: string, page: Page) {
-    let xpath = `//div[contains(concat('',@class,''),'admin-navigation')]//a[normalize-space()='${label}']`;
+    let xpath = `//div[contains(concat('',@class,''), 'admin-nav')]//a[normalize-space()='${label}']`;
     await page.locator(xpath).click();
-
 }
 
 // async deleteProductById(cookie: string, productId: string) {

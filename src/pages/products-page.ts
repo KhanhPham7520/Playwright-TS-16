@@ -1,6 +1,4 @@
 
 
 
-export class ProductPage {
-
-}
+export class ProductsPage {

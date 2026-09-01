@@ -1,14 +1,15 @@
 import { expect, test } from "@playwright/test";
 import { invalidLoggedInData } from "../../../data/upload/login/login-data";
 import { clickButtonByLabel, inputTextboxByLabel, verifyFieldErrorMessageByLabel } from "../../../src/common";
+import { ADMIN_HOST, ADMIN_PASSWORD, ADMIN_USERNAME } from "../../../src/utils/constants-utils";
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/admin/login');
+    await page.goto(ADMIN_HOST);
 })
 
 test('Verify login successful ', async ({ page }) => {
-    await inputTextboxByLabel('Email', "khanhpham7520@gmail.com", page);
-    await inputTextboxByLabel('Password', "1234567890", page);
+    await inputTextboxByLabel('Email', ADMIN_USERNAME, page);
+    await inputTextboxByLabel('Password', ADMIN_PASSWORD, page);
     await clickButtonByLabel('SIGN IN', page);
     let dashboardHeaderXpath = "//h1[contains(concat(' ',@class,' '),' page-heading-title' ) and (normalize-space()='Dashboard')]";
     await expect(page.locator(dashboardHeaderXpath)).toBeVisible();
