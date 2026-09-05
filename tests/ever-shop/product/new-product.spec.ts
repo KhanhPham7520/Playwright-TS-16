@@ -22,12 +22,12 @@ test('Verify create new product successful', async ({ page }) => {
     await expect(page.locator(newProductHeaderXpath)).toBeVisible();
 
     //Input product's info
-    await inputTextboxByLabel('Name', 'Iphone', page);
-    await inputTextboxByLabel('SKU', '1234567890', page);
+    await inputTextboxByLabel('Name', 'Iphone 18 pro', page);
+    await inputTextboxByLabel('SKU', '123456', page);
     await inputTextboxByLabel('Price', '1500', page);
     await inputTextboxByLabel('Weight', '0.05', page);
     await selectDropdownItemByLabel('Tax class', 'Taxable Goods', page);
-    await uploadProductImage("/data/data/upload/iphone-17-pro-max-cam.jpg", page)
+    await uploadProductImage("/data/data/upload/iPhone-16-pro.webp", page)
     await selectRadioButtonByLabel('Status', 'Disabled', page);
     await selectRadioButtonByLabel('Visibility', 'Not visible', page);
     await selectRadioButtonByLabel('Manage stock?', 'No', page);
@@ -43,7 +43,6 @@ test('Verify create new product successful', async ({ page }) => {
     await inputTextboxByLabel('Meta description', 'Iphone 18 pro max description', page);
 
     await clickButtonByLabel('Save', page);
-
     await verifyNotificationMessage('Product saved successfully!', page)
 
     await page.waitForTimeout(1000);

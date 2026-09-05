@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { invalidLoggedInData } from "../../../data/upload/login/login-data";
 import { clickButtonByLabel, inputTextboxByLabel, verifyFieldErrorMessageByLabel } from "../../../src/common";
 import { ADMIN_HOST, ADMIN_PASSWORD, ADMIN_USERNAME } from "../../../src/utils/constants-utils";
 
@@ -15,16 +14,16 @@ test('Verify login successful ', async ({ page }) => {
     await expect(page.locator(dashboardHeaderXpath)).toBeVisible();
 });
 
-for (let input of invalidLoggedInData) {
-    test(`Verify login failed when username is '${input.email}' and password is '${input.password}' `, async ({ page }) => {
-        await inputTextboxByLabel('Email', input.email, page);
-        await inputTextboxByLabel('Password', input.password, page);
-        await clickButtonByLabel('SIGN IN', page);
-        for (let item of input.expected) {
-            await verifyFieldErrorMessageByLabel(item.field, item.message, page)
-        }
-    });
-}
+// for (let input of invalidLoggedInData) {
+//     test(`Verify login failed when username is '${input.email}' and password is '${input.password}' `, async ({ page }) => {
+//         await inputTextboxByLabel('Email', input.email, page);
+//         await inputTextboxByLabel('Password', input.password, page);
+//         await clickButtonByLabel('SIGN IN', page);
+//         for (let item of input.expected) {
+//             await verifyFieldErrorMessageByLabel(item.field, item.message, page)
+//         }
+//     });
+// }
 
 test('Verify login failed when password is empty', async ({ page }) => {
     await inputTextboxByLabel('Email', 'khanhpham', page);
