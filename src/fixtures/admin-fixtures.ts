@@ -1,3 +1,4 @@
+import { test } from "@playwright/test";
 import { UIManager } from "../pages/ui-manager";
 
 type AdminFixture = {

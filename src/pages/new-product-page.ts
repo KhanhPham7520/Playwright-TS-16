@@ -1,21 +1,29 @@
 import { expect, Page } from "@playwright/test";
+import path from "node:path";
 
+export class NewProductPage {
+    page: Page;
 
-export async function inboxTextboxByLabel(label: string, input: string, page: Page) {
-    let xpath = `(//label[normalize-space()='${label}']//following::input)[1]`;
-    let inputLocator = page.locator(xpath);
-    await inputLocator.click();
-    await inputLocator.clear();
-    await inputLocator.fill(input);
+    constructor(page: Page) {
+        this.page = page;
+    }
+
+    async selectCategory(category: string) {
+        await this.page.getByRole("link", { name: "Select category" }).click();
+        let searchCategoryInput =
+            this.page.getByPlaceholder("Search categories");
+
+        await searchCategoryInput.clear();
+        await searchCategoryInput.click();
+        await searchCategoryInput.fill(category);
+
+        let searchButtonXpath = `(//span[normalize-space()='${category}']//following::button[normalize-space()='Select'])[1]`;
+        await this.page.locator(searchButtonXpath).click();
+    }
+
+    async uploadProductImage(filePath: string) {
+        let selector = `#images input`;
+        let absolutePath = path.join(process.cwd(), filePath);
+        await this.page.locator(selector).setInputFiles(absolutePath);
+    }
 }
-
-export async function clickButtonByLabel(label: string, input: string, page: Page) {
-    let xpath = `//*[(@role='button' or self::button or self::input) and (normalize-space()='${label}' or @value='${label}')]`;
-    await page.locator(xpath).click();
-}
-
-export async function verifyFieldErrorMessageByLabel(label: string, message: string, page: Page) {
-    let xpath = `//label[normalize-space()='${label}']/following::div[contains(concat(' ' ,@class, ' '), ' field-error ')]`;
-    await expect(page.locator(xpath)).toBeVisible();
-}
-

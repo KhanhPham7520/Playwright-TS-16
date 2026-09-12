@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { CommonPage } from "../common";
+import { CommonPage } from "./common-page";
 
 export class EditProductPage extends CommonPage {
 

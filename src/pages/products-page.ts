@@ -1,4 +1,10 @@
+import { Page } from "@playwright/test";
 
 
+export class productPage {
+    page: Page;
 
-export class ProductsPage {
+    constructor(page:Page){
+        this.page = page;
+    }
+}
