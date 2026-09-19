@@ -5,6 +5,7 @@ import {
 } from "../../../src/utils/constants-utils";
 import { CommonPage } from "../../../src/pages/common-page";
 import { NewProductPage } from "../../../src/pages/new-product-page";
+import { LoginPage } from "../../../src/pages/login-page";
 
 test.beforeEach(async ({ page }) => {
     await page.goto("http://localhost:3000/admin/login");
@@ -13,15 +14,13 @@ test.beforeEach(async ({ page }) => {
 test("Verify create new product successful", async ({ page }) => {
     let commonPage = new CommonPage(page);
     let newProductPage = new NewProductPage(page);
+    let loginPage = new LoginPage(page);
 
     //Login
-    await commonPage.inputTextboxByLabel("Email", ADMIN_USERNAME);
-    await commonPage.inputTextboxByLabel("Password", ADMIN_PASSWORD);
-    await commonPage.clickButtonByLabel("SIGN IN");
+    await loginPage.login(ADMIN_USERNAME, ADMIN_PASSWORD);
 
     //Verify user on Dashboard page
-    let dashboardHeaderXpath =
-        "//h1[contains(concat('', @class, ''), 'page-heading-title')]";
+    let dashboardHeaderXpath = "//h1[contains(concat('', @class, ''), 'page-heading-title')]";
     await expect(page.locator(dashboardHeaderXpath)).toBeVisible();
     await commonPage.clickMenuItemByLabel("New Product");
 
@@ -48,10 +47,16 @@ test("Verify create new product successful", async ({ page }) => {
     await commonPage.selectDropdownItemByLabel("Color", "Black");
     await commonPage.selectDropdownItemByLabel("Size", "XXL");
 
-    await commonPage.inputTextboxByLabel("Url key",`iphone-18-pro-max-${random}`);
+    await commonPage.inputTextboxByLabel(
+        "Url key",
+        `iphone-18-pro-max-${random}`,
+    );
     await commonPage.inputTextboxByLabel("Meta title", "Iphone 18 Pro Max");
-    await commonPage.inputTextboxByLabel("Meta keywords","Iphone 18 pro max",);
-    await commonPage.inputTextboxByLabel("Meta description","Iphone 18 pro max description");
+    await commonPage.inputTextboxByLabel("Meta keywords", "Iphone 18 pro max");
+    await commonPage.inputTextboxByLabel(
+        "Meta description",
+        "Iphone 18 pro max description",
+    );
 
     await commonPage.clickButtonByLabel("Save");
     await commonPage.verifyNotificationMessage("Product saved successfully!");

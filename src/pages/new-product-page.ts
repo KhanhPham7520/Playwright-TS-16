@@ -1,11 +1,16 @@
 import { expect, Page } from "@playwright/test";
 import path from "node:path";
+import { CommonPage } from "./common-page";
 
-export class NewProductPage {
-    page: Page;
-
+export class NewProductPage extends CommonPage {
     constructor(page: Page) {
-        this.page = page;
+        super(page);
+    }
+
+    async onPage() {
+        let dashboardHeaderXpath =
+            "//h1[contains(concat('', @class, ''), 'page-heading-title')]";
+        await expect(this.page.locator(dashboardHeaderXpath)).toBeVisible();
     }
 
     async selectCategory(category: string) {

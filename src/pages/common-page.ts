@@ -2,7 +2,6 @@ import { expect, Page } from "@playwright/test";
 import path from "node:path";
 
 export class CommonPage {
-    
     page: Page;
 
     constructor(page: Page) {
@@ -25,6 +24,7 @@ export class CommonPage {
         let xpath = `//*[(@role='button' or self::button or self::input) and (normalize-space()='${label}' or @value='${label}')]`;
         await this.page.locator(xpath).click();
     }
+
     async verifyFieldErrorMessageByLabel(
         label: string,
         message: string,
@@ -33,6 +33,7 @@ export class CommonPage {
         let xpath = `//label[normalize-space()='${label}']/following::div[contains(concat(' ', @class, ' '),'field-error') and (normalize-space()='${message}')]`;
         await expect(page.locator(xpath)).toBeVisible();
     }
+
     async clickMenuItemByLabel(label: string) {
         let xpath = `//div[contains(concat('',@class,''), 'admin-nav')]//a[normalize-space()='${label}']`;
         await this.page.locator(xpath).click();
