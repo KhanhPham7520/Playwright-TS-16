@@ -1,5 +1,4 @@
 import { expect, Page } from "@playwright/test";
-import path from "node:path";
 
 export class CommonPage {
     page: Page;
@@ -62,5 +61,14 @@ export class CommonPage {
     async selectRadioButtonByLabel(label: string, item: string) {
         let xpath = `(//label[normalize-space()='${label}']//following::div//span[normalize-space()='${item}'])[1]`;
         await this.page.locator(xpath).click();
+    }
+
+    async getTextboxValueByLabel(label: string) {
+        let xpathTextbox = `(//label[normalize-space()='${label}']//following::input)[1]`;
+        let xpathTextarea = `(//label[normalize-space()='${label}']//following::textarea)[1]`;
+        let inputLocator = this.page
+            .locator(`${xpathTextarea} | ${xpathTextbox}`)
+            .first();
+        return inputLocator.inputValue();
     }
 }

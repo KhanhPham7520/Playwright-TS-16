@@ -1,6 +1,5 @@
 import { expect, Page } from "@playwright/test";
 import { CommonPage } from "./common-page";
-import { ADMIN_PASSWORD, ADMIN_USERNAME } from "../utils/constants-utils";
 
 export class LoginPage extends CommonPage {
     constructor(page: Page) {
