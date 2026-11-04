@@ -10,6 +10,7 @@ import { EditProductPage } from "../../../src/pages/edit-product-page";
 import { LoginPage } from "../../../src/pages/login-page";
 import { NewProductPage } from "../../../src/pages/new-product-page";
 import { DashboardPage } from "../../../src/pages/dashboard-page";
+import { request } from "http";
 
 let newProductPage: NewProductPage;
 let loginPage: LoginPage;
@@ -85,25 +86,13 @@ test("Verify create a new product successful", async ({ page }) => {
     await productPage.searchProduct(productName);
     await productPage.selectProductByName(productName);
     await editProductPage.onPage(productName);
-    // http://localhost:3000/admin/products/edit/75284481-4d32-4e18-a885-4fc875a91b7a
-    let url = page.url();
-    let splitStr = url.split("/");
-    //let productId = splitStr[length-1];
 
-    expect(await editProductPage.getTextboxValueByLabel("Name")).toEqual(
-        productName,
-    );
+    let productId = editProductPage.getProductIdFromUrl();
+
+    expect(await editProductPage.getTextboxValueByLabel("Name")).toEqual(productName);
     expect(await editProductPage.getTextboxValueByLabel("SKU")).toEqual(sku);
-    expect(await editProductPage.getTextboxValueByLabel("Price")).toEqual(
-        "1500",
-    );
-    expect(await editProductPage.getTextboxValueByLabel("Weight")).toEqual(
-        "0.05",
-    );
+    expect(await editProductPage.getTextboxValueByLabel("Price")).toEqual("1500");
+    expect(await editProductPage.getTextboxValueByLabel("Weight")).toEqual("0.05");
 
-    let cookies = await page.context().cookies();
-    let asidOjb = cookies.find((obj) => obj.name == "asid");
-    let sidObj = cookies.find((obj) => obj.name == "sid");
-    let cookiesHeader = `sid=${sidObj?.value};asid=${asidOjb?.value}`;
-    console.log();
+
 });

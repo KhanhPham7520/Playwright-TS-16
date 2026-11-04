@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Page, request } from "@playwright/test";
 
 export class CommonPage {
     page: Page;
@@ -70,5 +70,22 @@ export class CommonPage {
             .locator(`${xpathTextarea} | ${xpathTextbox}`)
             .first();
         return inputLocator.inputValue();
+    }
+
+    async getCookie() {
+        let cookies = await this.page.context().cookies();
+        let asidOjb = cookies.find((obj) => obj.name == "asid");
+        let sidObj = cookies.find((obj) => obj.name == "sid");
+        let cookiesHeader = `sid=${sidObj?.value};asid=${asidOjb?.value}`;
+
+    }
+
+    async deleteProductById(cokkie: string, id:string) {
+        let req = await request.newContext();
+        await req.delete(`${API_URL}/api/products/${productId}`, {
+            headers: {
+                cookies: cookiesHeader,
+            },
+        });
     }
 }

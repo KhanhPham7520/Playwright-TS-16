@@ -9,8 +9,7 @@ export class ProductPage extends CommonPage {
     }
 
     async onPage() {
-        let dashboardHeaderXpath =
-            "//div[contains(concat(' ', @class, ' '), ' admin-nav ')]//a[normalize-space()='Products']";
+        let dashboardHeaderXpath = "//div[contains(concat(' ', @class, ' '), ' admin-nav ')]//a[normalize-space()='Products']";
         await expect(this.page.locator(dashboardHeaderXpath)).toBeVisible();
     }
 
